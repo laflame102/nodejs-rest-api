@@ -29,6 +29,14 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      default: "",
+    },
   },
   { versionKey: false }
 );
@@ -45,11 +53,20 @@ const loginSchema = Joi.object({
   email: Joi.string().required(),
 });
 
+const emailSchema = Joi.object({
+  email: Joi.string().required(),
+});
+
 const subscriptionSchema = Joi.object({
   subscription: Joi.valid(...subscriptions).required(),
 });
 
-const schemas = { registerSchema, loginSchema, subscriptionSchema };
+const schemas = {
+  registerSchema,
+  loginSchema,
+  subscriptionSchema,
+  emailSchema,
+};
 
 const User = model("user", userSchema);
 
